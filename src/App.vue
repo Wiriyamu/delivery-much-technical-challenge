@@ -8,6 +8,10 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
-  background: #feca1b;
+}
+
+html,
+body {
+  background-color: #feca1b;
 }
 </style>

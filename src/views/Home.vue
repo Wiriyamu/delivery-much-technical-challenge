@@ -1,9 +1,11 @@
 <template>
-  <h1>Welcome to Your Vue.js App</h1>
+  <GenerationsPokemons />
 </template>
 
 <script>
+import GenerationsPokemons from '@/components/Home/GenerationsPokemons'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: { GenerationsPokemons }
 }
 </script>
