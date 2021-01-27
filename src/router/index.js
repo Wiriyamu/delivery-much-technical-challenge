@@ -15,7 +15,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ '../views/Generation.vue')
   },
   {
-    path: '/pokemon/:name/',
+    path: '/pokemon/:name/:generation',
     name: 'Pokemon',
     props: true,
     component: () =>
@@ -24,6 +24,9 @@ const routes = [
 ]
 
 const router = createRouter({
+  scrollBehavior() {
+    return { top: 0 }
+  },
   history: createWebHistory(process.env.BASE_URL),
   routes
 })

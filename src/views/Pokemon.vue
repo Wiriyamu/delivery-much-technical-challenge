@@ -1,10 +1,13 @@
 <template>
-  <div></div>
+  <info-pokemon />
 </template>
 
 <script>
+import InfoPokemon from '@/components/Pokemon/InfoPokemon'
+
 export default {
   name: 'Pokemon',
+  components: { InfoPokemon },
   setup() {
     return {}
   }
