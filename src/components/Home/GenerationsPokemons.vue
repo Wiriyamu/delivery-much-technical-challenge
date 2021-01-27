@@ -15,7 +15,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao1.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="1" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
 
         <div class="generation__cards">
@@ -23,7 +25,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao2.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="2" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
 
         <div class="generation__cards">
@@ -31,7 +35,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao3.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="3" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
 
         <div class="generation__cards">
@@ -39,7 +45,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao4.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="4" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
 
         <div class="generation__cards">
@@ -47,7 +55,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao5.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="5" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
 
         <div class="generation__cards">
@@ -55,7 +65,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao6.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="6" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
 
         <div class="generation__cards">
@@ -63,7 +75,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao7.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="7" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
 
         <div class="generation__cards">
@@ -71,7 +85,9 @@
           <figure class="generation__pokemon">
             <img src="../../assets/pokemonGeracao8.png" />
           </figure>
-          <button class="generation__button">Saiba Mais</button>
+          <button @click="routeGeneration" value="8" class="generation__button">
+            Saiba Mais
+          </button>
         </div>
       </section>
     </div>
@@ -79,10 +95,17 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 export default {
   name: 'GenerationsPokemons',
   setup() {
-    return {}
+    const router = useRouter()
+
+    const routeGeneration = event => {
+      const property = event.target.value
+      router.push(`/generation/${property}/`)
+    }
+    return { routeGeneration }
   }
 }
 </script>
