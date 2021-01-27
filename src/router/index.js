@@ -13,6 +13,13 @@ const routes = [
     props: true,
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/Generation.vue')
+  },
+  {
+    path: '/pokemon/:name/',
+    name: 'Pokemon',
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/Pokemon.vue')
   }
 ]
 
