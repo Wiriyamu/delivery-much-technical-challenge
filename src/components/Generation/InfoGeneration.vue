@@ -9,7 +9,7 @@
         />
         <nav class="generation__nav">
           <h1 class="generation__id">{{ id }}° Geração</h1>
-          <router-link class="generation__back" to="/">Voltar</router-link>
+          <router-link class="generation__back" to="/">Home</router-link>
         </nav>
       </header>
 
@@ -60,6 +60,7 @@ export default {
         `https://pokeapi.co/api/v2/generation/${generationChoice}`
       )
       const data = await response.json()
+      console.log(data)
       state.id = data.id
       state.name = data.name
       state.pokemonSpecies = data.pokemon_species
@@ -69,7 +70,8 @@ export default {
     const pokemonsLength = computed(() => state.pokemonSpecies.length)
 
     const pokemonInfos = ({ name }) => {
-      router.push(`/pokemon/${name}`)
+      const generationChoice = route.params.id
+      router.push(`/pokemon/${name}/${generationChoice}`)
     }
     return { state, pokemonsLength, pokemonInfos }
   }
