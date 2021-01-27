@@ -3,35 +3,37 @@
     <div class="pokemon__container">
       <header class="pokemon__header">
         <img
-          class="pokemon__img"
+          class="pokemon__pikachu-img"
           src="../../assets/pikachu2.png"
           alt="Pikachu"
         />
         <div>
-          <router-link class="pokemon__back" :to="`/generation/${generation}`"
+          <router-link
+            class="pokemon__goto-page-generations"
+            :to="`/generation/${generation}`"
             >Página Anterior</router-link
           >
-          <router-link class="pokemon__back" to="/">Home</router-link>
+          <router-link class="pokemon__goto-page-home" to="/">Home</router-link>
         </div>
       </header>
 
-      <div class="pokemon__infos">
+      <div class="pokemon__informations">
         <h1 class="pokemon__name">{{ pokemonName }}</h1>
-        <div class="pokemon__imgBox">
+        <div class="pokemon__images-box">
           <img
-            class="pokemon__front"
+            class="pokemon__pokemon-front"
             :src="state.pokemon.front"
             alt="pokemon"
           />
 
           <img
-            class="pokemon__front"
+            class="pokemon__pokeball"
             src="../../assets/pokeball.png"
             alt="Pokeball"
           />
         </div>
 
-        <section class="pokemon__card">
+        <section class="pokemon__stats">
           <ul>
             <h4>Tipo</h4>
             <li v-for="type in state.pokemon.type" :key="type.slot">
@@ -69,7 +71,7 @@ export default {
     const state = reactive({
       pokemon: {
         name: '',
-        types: [],
+        type: [],
         abilities: [],
         stats: [],
         front: ''
@@ -92,32 +94,27 @@ export default {
     getInfoPokemonChoice()
 
     const pokemonName = computed(() => {
-      const newName = state.pokemon.name.slice(1)
+      const nameSlice = state.pokemon.name.slice(1)
       const firstCharacter = state.pokemon.name.charAt(0).toUpperCase()
-      return firstCharacter + newName
+      return firstCharacter + nameSlice
     })
 
-    const pokemonWeight = computed(() =>
-      parseFloat(state.pokemon.weight).toFixed(1)
-    )
-
-    return { state, pokemonName, pokemonWeight }
+    return { state, pokemonName }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/sass/main.scss';
+
 .pokemon {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: #3761a8;
+  background-color: $colorBlue;
 
   &__container {
-    width: 100%;
-    max-width: 998px;
-    margin: 0 auto;
-    padding: 0 2%;
+    @include container;
   }
 
   &__header {
@@ -127,55 +124,56 @@ export default {
     margin-top: 2rem;
   }
 
-  &__img {
-    max-width: 120px;
+  &__pikachu-img {
+    max-width: 12rem;
   }
 
-  &__back {
-    margin: 5px 0 0 20px;
-    padding: 10px 20px;
+  &__goto-page-generations,
+  &__goto-page-home {
+    margin: 0.3125rem 0 0 2rem;
+    padding: 0.625rem 2rem;
     font-weight: bold;
     font-size: 1.2rem;
     text-align: center;
-    text-decoration: none;
-    color: #fff;
-    background-color: #ef5350;
+    color: $colorWhite;
+    background-color: $colorRed;
 
     &:hover {
       transition: 0.3s ease-in;
-      background-color: #feca1b;
+      background-color: $colorBase;
     }
   }
 
-  &__infos {
+  &__informations {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0 auto;
     margin-top: 3rem;
-    padding: 20px 20px;
-    border-radius: 10px;
-    background-color: #fff;
+    padding: 2rem 2rem;
+    border-radius: 0.625rem;
+    background-color: $colorWhite;
   }
 
   &__name {
     font-size: 2rem;
   }
 
-  &__imgBox {
+  &__images-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  &__front {
-    width: 150px;
+  &__pokemon-front,
+  &__pokeball {
+    width: 15rem;
   }
 
-  &__card {
+  &__stats {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 0.625rem;
   }
 }
 </style>

@@ -3,20 +3,23 @@
     <div class="generation__container">
       <header class="generation__header">
         <img
-          class="generation__img"
+          class="generation__pikachu-img"
           src="../../assets/pikachu.png"
           alt="Pikachu"
         />
-        <nav class="generation__nav">
-          <h1 class="generation__id">{{ id }}° Geração</h1>
-          <router-link class="generation__back" to="/">Home</router-link>
+        <nav class="generation__navigation">
+          <h1 class="generation__id-generation">{{ id }}° Geração</h1>
+          <router-link class="generation__back-home" to="/">Home</router-link>
         </nav>
       </header>
 
-      <section class="generation__infos">
+      <section class="generation__informations">
         <figure>
           <p class="generation__amount">
-            <strong>{{ pokemonsLength }}</strong> Pokemóns Encontrados
+            <strong class="generation__amount-strong">{{
+              pokemonsAmount
+            }}</strong>
+            Pokemóns Encontrados
           </p>
           <img src="../../assets/pokedex.png" alt="Pokédex" />
         </figure>
@@ -25,11 +28,14 @@
       <ul>
         <li
           class="generation__pokemon"
-          v-for="pokemon in state.pokemonSpecies"
+          v-for="pokemon in state.generation.pokemonSpecies"
           :key="pokemon.id"
         >
           <h3>{{ pokemon.name }}</h3>
-          <button @click="pokemonInfos(pokemon)" class="generation__button">
+          <button
+            @click="goToRoutePokemon(pokemon)"
+            class="generation__pokemon-button"
+          >
             Saiba Mais
           </button>
         </li>
@@ -47,9 +53,11 @@ export default {
   props: ['id'],
   setup() {
     const state = reactive({
-      id: null,
-      name: '',
-      pokemonSpecies: []
+      generation: {
+        id: null,
+        name: '',
+        pokemonSpecies: []
+      }
     })
     const router = useRouter()
     const route = useRoute()
@@ -60,33 +68,32 @@ export default {
         `https://pokeapi.co/api/v2/generation/${generationChoice}`
       )
       const data = await response.json()
-      console.log(data)
-      state.id = data.id
-      state.name = data.name
-      state.pokemonSpecies = data.pokemon_species
+      state.generation.id = data.id
+      state.generation.name = data.name
+      state.generation.pokemonSpecies = data.pokemon_species
     }
     getInfoGenerationChoice()
 
-    const pokemonsLength = computed(() => state.pokemonSpecies.length)
+    const pokemonsAmount = computed(
+      () => state.generation.pokemonSpecies.length
+    )
 
-    const pokemonInfos = ({ name }) => {
+    const goToRoutePokemon = ({ name }) => {
       const generationChoice = route.params.id
       router.push(`/pokemon/${name}/${generationChoice}`)
     }
-    return { state, pokemonsLength, pokemonInfos }
+    return { state, pokemonsAmount, goToRoutePokemon }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/sass/main.scss';
 .generation {
   width: 100%;
 
   &__container {
-    width: 100%;
-    max-width: 998px;
-    margin: 0 auto;
-    padding: 0 2%;
+    @include container;
   }
 
   &__header {
@@ -96,76 +103,67 @@ export default {
     margin-top: 2rem;
   }
 
-  &__img {
-    max-width: 150px;
+  &__pikachu-img {
+    max-width: 15rem;
   }
 
-  &__infos {
+  &__informations {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 3rem;
   }
 
-  &__nav {
+  &__navigation {
     display: flex;
     flex-direction: column;
   }
 
-  &__id {
-    font-size: 2.5rem;
-    color: #263238;
-  }
-
-  &__back {
-    margin-top: 5px;
-    padding: 10px 20px;
+  &__back-home {
+    margin-top: 0.3125rem;
+    padding: 0.625rem 0.625rem;
     font-weight: bold;
     font-size: 1.2rem;
     text-align: center;
-    text-decoration: none;
-    color: #fff;
-    background-color: #ef5350;
+    color: $colorWhite;
+    background-color: $colorRed;
 
     &:hover {
       transition: 0.3s ease-in;
-      background-color: #3761a8;
+      background-color: $colorBlue;
     }
   }
 
   &__amount {
-    margin: 5px 0;
+    margin: 0.3125rem 0;
     font-size: 2rem;
+  }
+
+  &__amount-strong {
+    color: $colorBlue;
   }
 
   &__pokemon {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 0;
-    padding: 20px 10px;
-    list-style-type: none;
-    background-color: #fff;
+    margin: 2rem 0;
+    padding: 2rem 0.625rem;
+    background-color: $colorWhite;
   }
 
-  &__button {
-    margin-top: 5px;
-    padding: 10px 20px;
+  &__pokemon-button {
+    margin-top: 0.3125rem;
+    padding: 0.625rem 2rem;
     font-weight: bold;
     text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    color: #fff;
-    background-color: #ef5350;
+    color: $colorWhite;
+    background-color: $colorRed;
 
     &:hover {
       transition: 0.3s ease-in;
-      background-color: #3761a8;
+      background-color: $colorBlue;
     }
   }
-}
-
-strong {
-  color: #3761a8;
 }
 </style>
