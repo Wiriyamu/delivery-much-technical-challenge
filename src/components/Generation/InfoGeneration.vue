@@ -51,12 +51,7 @@ import axios from 'axios'
 
 export default {
   name: 'InfoGeneration',
-  props: {
-    id: {
-      type: Number,
-      required: true
-    }
-  },
+  props: ['id'],
   setup(props) {
     const state = reactive({
       generation: {
