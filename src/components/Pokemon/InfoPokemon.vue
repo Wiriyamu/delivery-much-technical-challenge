@@ -62,6 +62,7 @@
 
 <script>
 import { computed, reactive } from 'vue'
+import axios from 'axios'
 
 export default {
   name: 'InfoPokemon',
@@ -78,10 +79,9 @@ export default {
     })
 
     async function getInfoPokemonChoice() {
-      const response = await fetch(
+      const { data } = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${props.name}`
       )
-      const data = await response.json()
       state.pokemon.name = data.name
       state.pokemon.type = data.types
       state.pokemon.front = data.sprites.front_default

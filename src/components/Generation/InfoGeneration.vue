@@ -47,6 +47,7 @@
 <script>
 import { computed, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 export default {
   name: 'InfoGeneration',
@@ -67,10 +68,9 @@ export default {
     const router = useRouter()
 
     async function getInfoGenerationChoice() {
-      const response = await fetch(
+      const { data } = await axios.get(
         `https://pokeapi.co/api/v2/generation/${props.id}`
       )
-      const data = await response.json()
       state.generation.id = data.id
       state.generation.name = data.name
       state.generation.pokemonSpecies = data.pokemon_species
