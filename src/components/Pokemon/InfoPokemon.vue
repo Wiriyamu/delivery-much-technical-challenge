@@ -62,12 +62,11 @@
 
 <script>
 import { computed, reactive } from 'vue'
-import { useRoute } from 'vue-router'
 
 export default {
   name: 'InfoPokemon',
   props: ['name', 'generation'],
-  setup() {
+  setup(props) {
     const state = reactive({
       pokemon: {
         name: '',
@@ -77,12 +76,10 @@ export default {
         front: ''
       }
     })
-    const route = useRoute()
 
     async function getInfoPokemonChoice() {
-      const pokemonChoice = route.params.name
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonChoice}`
+        `https://pokeapi.co/api/v2/pokemon/${props.name}`
       )
       const data = await response.json()
       state.pokemon.name = data.name

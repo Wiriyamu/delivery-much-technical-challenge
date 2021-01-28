@@ -46,12 +46,17 @@
 
 <script>
 import { computed, reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'InfoGeneration',
-  props: ['id'],
-  setup() {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
+  setup(props) {
     const state = reactive({
       generation: {
         id: null,
@@ -60,12 +65,10 @@ export default {
       }
     })
     const router = useRouter()
-    const route = useRoute()
 
     async function getInfoGenerationChoice() {
-      const generationChoice = route.params.id
       const response = await fetch(
-        `https://pokeapi.co/api/v2/generation/${generationChoice}`
+        `https://pokeapi.co/api/v2/generation/${props.id}`
       )
       const data = await response.json()
       state.generation.id = data.id
@@ -79,8 +82,7 @@ export default {
     )
 
     const goToRoutePokemon = ({ name }) => {
-      const generationChoice = route.params.id
-      router.push(`/pokemon/${name}/${generationChoice}`)
+      router.push(`/pokemon/${name}/${props.id}`)
     }
     return { state, pokemonsAmount, goToRoutePokemon }
   }
